@@ -1,17 +1,7 @@
-# Default values for firstchart.
+# Default values for secondchart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-my:
-  custom:
-    data: "ozer"
-  flag: true
-  values:
-    - engin
-    - sezgin
-    - ozgur
-    - ozer
-    - sezer
-    
+
 replicaCount: 1
 
 image:
@@ -90,15 +80,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-mysql: 
-  enabled: true
-  auth:
-    rootPassword: test1234
-  primary:
-    service:
-      type: NodePort
-      nodePorts: 
-        mysql: 30788 
-
-

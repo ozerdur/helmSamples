@@ -31,6 +31,8 @@ helm repo remove bitnami
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
+To update local cache of repo for searching:
+    helm repo update 
 
 Search the repository:
 
@@ -78,6 +80,12 @@ To generate yaml without validating:
 
     helm template mydb bitnami/mysql --values <values.yaml path>
 
+
+To download helm chart tgz:
+    helm pull firstchart localRepo/firtschart
+
+To install from a local tgz:
+    helm install firstchart firstchart-0.1.0.tgz
 --------------------------------------------
 
 To Upgrade:
@@ -137,5 +145,43 @@ To package your chart:
     and, or used just after if
     range for looping
     include is used to invoke functions which can be used with pipe unlike template
+    import-values field can be used to import exported values from dependency charts. Unexported values can be imported using child and map with parent.
+    hooks can be used to run before and after installations.
+    tags is used to conditionally add multiple dependencies when are using the same condition
+    hook-weight is used prioritize hooks
 
+To add dependency charts:
+    helm dependency update <chartname>
 
+To create a repo index under charsrepo directory:
+    helm repo index chartsrepo/
+    helm package firstchart -d chartsrepo
+
+## OCI Registry
+    docker run -d --name oci-registry -p 5000:5000 registry
+
+    helm package firstchart
+
+    helm push firstchart-0.1.0.tgz oci://localhost:5000/helm-charts
+
+    helm show all oci://localhost:5000/helm-charts/firstchart --version 0.1.0
+
+    helm pull oci://localhost:5000/helm-charts/firstchart --version 0.1.0
+
+    helm template myrelease oci://localhost:5000/helm-charts/firstchart --version 0.1.0
+
+    helm install myrelease oci://localhost:5000/helm-charts/firstchart --version 0.1.0
+
+    helm upgrade myrelease oci://localhost:5000/helm-charts/firstchart --version 0.2.0
+
+    helm registry login -u myuser <oci registry>
+
+    helm registry logout <oci registry url>
+
+## security
+   gnu gp download
+   gpg --full-generate-key ( to create key)
+   gpg --export-secret-keys | ~/.gnupg/secring.gpg (to export them to secring.gpg file instead of kbx)
+   helm package --sign --key <email> --keyring ~/.gnupg/secring.gpg firstchart -d chartsrepo (will create a prov file which has alias(email) as well)
+   helm verify chartsrepo/firstchart-0.1.0.tgz --keyring  ~/.gnupg/secring.gpg (to verify)
+   helm install --verify --keyring  ~/.gnupg/secring.gpg  localrepo/firstchart

@@ -1,24 +1,15 @@
-# Default values for firstchart.
+# Default values for couponservice.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-my:
-  custom:
-    data: "ozer"
-  flag: true
-  values:
-    - engin
-    - sezgin
-    - ozgur
-    - ozer
-    - sezer
-    
+
 replicaCount: 1
 
 image:
-  repository: nginx
+  registry: docker.io
+  repository: bharatht19/couponservice
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
@@ -47,8 +38,10 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 9091
+  targetPort: 9091
+  nodePort: 32761
 
 ingress:
   enabled: false
@@ -91,14 +84,15 @@ tolerations: []
 
 affinity: {}
 
+
 mysql: 
-  enabled: true
   auth:
     rootPassword: test1234
+    database: mydb
   primary:
     service:
       type: NodePort
       nodePorts: 
-        mysql: 30788 
-
-
+        mysql: 32762 
+  fullnameOverride: docker-mysql
+  initdbScriptsConfigMap: mysql-initdb-config
