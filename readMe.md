@@ -157,6 +157,7 @@ To create a repo index under charsrepo directory:
     helm repo index chartsrepo/
     helm package firstchart -d chartsrepo
 
+
 ## OCI Registry
     docker run -d --name oci-registry -p 5000:5000 registry
 
@@ -185,3 +186,27 @@ To create a repo index under charsrepo directory:
    helm package --sign --key <email> --keyring ~/.gnupg/secring.gpg firstchart -d chartsrepo (will create a prov file which has alias(email) as well)
    helm verify chartsrepo/firstchart-0.1.0.tgz --keyring  ~/.gnupg/secring.gpg (to verify)
    helm install --verify --keyring  ~/.gnupg/secring.gpg  localrepo/firstchart
+
+## Starters
+To create a start and use it
+    helm env HELM_DATA_HOME (to get the home directory)
+    Create a home/starters folder
+    copy the chart and replace chartname with <CHARTNAME> in files under template
+    helm create --starter <templatename> <customappname>
+
+## Plugins
+    helm plugin list
+    helm plugin install https://github.com/salesforce/helm-starter.git (or tar ball)
+    helm <plugin name> --help
+    helm plugin update <plugin name>
+    helm plugin remove <plugin name>
+    with platformCommand diff commands can be defined for each os
+
+
+## More Helm
+values.schema.json is used to validate values
+helm lint . (to validate)
+
+To generate schema
+    convert values from yaml to json- (https://www.json2yaml.com)
+    convert json to schema (https://jsonschema.net/home)
