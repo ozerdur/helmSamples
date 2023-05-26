@@ -21,47 +21,28 @@ For every version values are recorded as secrets
 
 # Commands
 
-helm repo list
+Repo commands
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm repo list
 
-helm repo list
+    helm repo add bitnami https://charts.bitnami.com/bitnami
 
-helm repo remove bitnami
-
-helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm repo remove bitnami
 
 To update local cache of repo for searching:
+
     helm repo update 
 
 Search the repository:
 
     helm search repo mysql
 
-    helm search repo database
-
-    helm search repo database --versions
+    helm search repo mysql --versions
 
 
 Install a package:
 
-kubectl get pods
-
-(Below Two commands - In a Different Shell/Commandline window/tab)
-
-minikube ssh
-
-docker images
-
-helm install mydb bitnami/mysql
-
-Check the cluster:
-
-kubectl get pods
-
-minikube ssh
-
-docker images
+    helm install mydb bitnami/mysql
 
 To check the installation status:
 
@@ -82,9 +63,11 @@ To generate yaml without validating:
 
 
 To download helm chart tgz:
+
     helm pull firstchart localRepo/firtschart
 
 To install from a local tgz:
+
     helm install firstchart firstchart-0.1.0.tgz
 --------------------------------------------
 
