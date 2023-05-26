@@ -120,6 +120,8 @@ To package your chart:
 
 
 # Templates
+Syntax Related:
+
     {{}} is used for dynamic code creation
     "-" eliminates spaces that may cause problem 
     . points to root
@@ -131,7 +133,7 @@ To package your chart:
     import-values field can be used to import exported values from dependency charts. Unexported values can be imported using child and map with parent.
     hooks can be used to run before and after installations.
     tags is used to conditionally add multiple dependencies when are using the same condition
-    hook-weight is used prioritize hooks
+    hook-weight is used to prioritize hooks
 
 To add dependency charts:
 
